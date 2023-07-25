@@ -6,8 +6,8 @@ import org.springframework.data.annotation.Id;
 
 @Data
 public class TransactionPostDto {
-    @Id
-    private String id;
-    @NotBlank(message = "Amount is required")
-    private double amount;
+  @Id
+  private String id;
+  @NotBlank(message = "Amount is required")
+  private double amount;
 }

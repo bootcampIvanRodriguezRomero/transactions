@@ -12,5 +12,6 @@ public class ProductDto {
     private String id;
     @NotBlank(message = "Type is required")
     private String type;
+    private double balance;
 }
 

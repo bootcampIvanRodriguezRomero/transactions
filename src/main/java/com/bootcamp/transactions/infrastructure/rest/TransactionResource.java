@@ -55,7 +55,7 @@ public class TransactionResource {
         log.info("Deleting transaction with ID: {}", id);
         return transactionsRepository.deleteById(id);
     }
-
+    
     private TransactionDto fromTransactionDaoToTransactionDto(TransactionDao transactionDao) {
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setId(transactionDao.getId());

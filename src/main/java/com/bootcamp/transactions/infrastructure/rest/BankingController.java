@@ -38,14 +38,14 @@ public class BankingController {
   @PostMapping("/accounts/{accountId}/transfer/{destinationAccountId}")
   public Mono<TransactionDto> transferFunds(@PathVariable String accountId,
                                             @PathVariable String destinationAccountId, @Valid
-                                              @RequestBody TransactionDto transactionDto) {
+                                            @RequestBody TransactionDto transactionDto) {
     return accountsRepository.findById(accountId)
       .zipWith(accountsRepository.findById(destinationAccountId))
       .flatMap(tuple -> {
         AccountDao sourceAccount = tuple.getT1();
         AccountDao destinationAccount = tuple.getT2();
         
-       if (sourceAccount.getBankId().equals(destinationAccount.getBankId())) {
+        if (sourceAccount.getBankId().equals(destinationAccount.getBankId())) {
           return performIntraBankTransfer(sourceAccount, destinationAccount,
             transactionDto.getAmount());
         } else {
@@ -54,7 +54,9 @@ public class BankingController {
       });
   }
   
-  private Mono<TransactionDto> performIntraBankTransfer(AccountDao sourceAccount, AccountDao destinationAccount, double amount) {
+  private Mono<TransactionDto> performIntraBankTransfer(AccountDao sourceAccount,
+                                                        AccountDao destinationAccount,
+                                                        double amount) {
     if (sourceAccount.getBalance() >= amount) {
       sourceAccount.setBalance(sourceAccount.getBalance() - amount);
       destinationAccount.setBalance(destinationAccount.getBalance() + amount);
